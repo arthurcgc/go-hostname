@@ -7,7 +7,7 @@ metadata:
   - apiVersion: application.vtex.dev/v1alpha1
     kind: AppEnvironment
     name: go-hostname-dev
-    uid: 11eebad5-0a19-433d-b8d3-52f974fcaf38
+    uid: fa2a33c9-6c9d-4aec-b1ea-121d92fbaeff
     controller: true
 spec:
   active: true
