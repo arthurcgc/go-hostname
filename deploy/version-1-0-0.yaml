@@ -1,0 +1,43 @@
+apiVersion: application.vtex.dev/v1alpha1
+kind: AppVersion
+metadata:
+  name: go-hostname-v1.0.0
+  namespace: platform-apps
+  ownerReferences:
+  - apiVersion: application.vtex.dev/v1alpha1
+    kind: AppEnvironment
+    name: go-hostname-dev
+    uid: 11eebad5-0a19-433d-b8d3-52f974fcaf38
+    controller: true
+spec:
+  active: true
+  image: 893085071497.dkr.ecr.us-east-1.amazonaws.com/core-platform/app-builds/go-hostname:v1.0.0-amd64
+  versionTemplate:
+    exposure:
+      type: internal
+      ports:
+      - name: http
+        port: 8888
+        targetPort: 8888
+    workloadPlacement:
+      accountName: sandbox
+      matchLabels:
+        argocd.argoproj.io/secret-type: cluster
+    capacity:
+      resources:
+        cpu: 250m
+        memory: 256Mi
+      autoscaling:
+        minReplicas: 1
+        maxReplicas: 2
+        policies:
+        - metric: cpu
+          target: 80
+    healthchecks:
+    - type: readinessProbe
+      protocol: http
+      path: /
+      port: 8888
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3

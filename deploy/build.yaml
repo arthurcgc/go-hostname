@@ -1,0 +1,22 @@
+apiVersion: application.vtex.dev/v1alpha1
+kind: AppBuild
+metadata:
+  name: go-hostname-build
+  namespace: platform-apps
+  ownerReferences:
+  - apiVersion: application.vtex.dev/v1alpha1
+    kind: WebApp
+    name: go-hostname
+    uid: 402bfea3-cb30-4603-877b-da46edf09475
+    controller: true
+spec:
+  source:
+    commit: 9ade4d4e211aa8a06af236432095173e3a22e71b
+    repositoryURL: https://github.com/vtex/go-hostname
+    repositoryId: "951532509"
+    branch: master
+    tag: v1.0.0
+  architectures:
+  - amd64
+  buildOpts:
+    buildWithK8sJob: true

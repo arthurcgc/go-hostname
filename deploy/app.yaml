@@ -1,0 +1,11 @@
+apiVersion: application.vtex.dev/v1alpha1
+kind: WebApp
+metadata:
+  name: go-hostname
+  namespace: platform-apps
+spec:
+  identity:
+    owner: platform-core
+    product: platform-webapp
+    acronyms:
+    - platform-webapp

@@ -1,0 +1,36 @@
+apiVersion: application.vtex.dev/v1alpha1
+kind: AppEnvironment
+metadata:
+  name: go-hostname-dev
+  namespace: platform-apps
+  ownerReferences:
+  - apiVersion: application.vtex.dev/v1alpha1
+    kind: WebApp
+    name: go-hostname
+    uid: 402bfea3-cb30-4603-877b-da46edf09475
+    controller: true
+spec:
+  type: innovation
+  versionTemplate:
+    workloadPlacement:
+      accountName: sandbox
+      matchLabels:
+        dk.platform.vtex.dev/account-name: sandbox
+    capacity:
+      resources:
+        cpu: 250m
+        memory: 256Mi
+      autoscaling:
+        minReplicas: 1
+        maxReplicas: 2
+        policies:
+        - metric: cpu
+          target: 80
+    healthchecks:
+    - type: readinessProbe
+      protocol: http
+      path: /
+      failureThreshold: 3
+      timeoutSeconds: 5
+      periodSeconds: 10
+      port: 8888
