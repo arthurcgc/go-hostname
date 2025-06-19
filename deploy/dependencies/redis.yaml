@@ -1,0 +1,44 @@
+apiVersion: application.vtex.dev/v1alpha1
+kind: Dependency
+metadata:
+  name: my-redis
+  namespace: platform-apps
+  ownerReferences:
+  - apiVersion: application.vtex.dev/v1alpha1
+    kind: AppEnvironment
+    name: go-hostname-dev
+    uid: 11eebad5-0a19-433d-b8d3-52f974fcaf38
+    controller: true
+spec:
+  type: aws-elasticache
+  values:
+    nodeType:
+      value: "cache.t3.micro"
+    numCacheNodes:
+      value: 1
+    numNodeGroups:
+      value: 2
+    region:
+      value: "us-east-1"
+    engine:
+      value: "redis"
+    engineVersion:
+      value: "7.0"
+    port:
+      value: 6379
+    parameterGroupFamily:
+      value: "redis7"
+    subnetIds:
+      value:
+      - "subnet-0396263a7dcbd5af1"
+      - "subnet-05d6fc4a5e3dfe65c"
+    parameterGroupParameters:
+      value:
+      - name: "maxmemory-policy"
+        value: "allkeys-lru"
+      - name: "timeout"
+        value: "300"
+      - name: "tcp-keepalive"
+        value: "60"
+      - name: "maxclients"
+        value: "1000"
